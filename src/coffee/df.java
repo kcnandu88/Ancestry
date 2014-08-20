@@ -13,11 +13,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import Features.Liveliness;
 import Features.Size;
-import coffeename.Frappe;
+import coffeename.*;
 
 @Path("/cost/")
 public class df {
@@ -29,9 +30,16 @@ public class df {
 	@GET
 	@Path("/Product")
 	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String products() {
-		return "Available Products";
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response products() throws Exception {
+		Response rb = null;
+		ConvertToJson convert = new ConvertToJson();
+		JSONArray json = new JSONArray();
+		json = convert.toJSONArray("Cappucino, Latte, Frappe, Expresso, Mocha");
+		String re = null;
+		re = json.toString();
+		rb = Response.ok(json).build();
+		return rb;
 	}
 
 	@POST
@@ -39,7 +47,7 @@ public class df {
 	@Consumes({ MediaType.APPLICATION_FORM_URLENCODED,
 			MediaType.APPLICATION_JSON })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addPcParts2(InputStream incomingData) throws Exception {
+	public Response ProductOrder(InputStream incomingData) throws Exception {
 		String input = convertStreamToString(incomingData);
 		JSONObject json = new JSONObject(input);
 
@@ -48,11 +56,8 @@ public class df {
 			CoffeeType = jsonArray.getJSONObject(i).getString("type");
 			Liveliness = jsonArray.getJSONObject(i).getString("liveliness");
 			Size = jsonArray.getJSONObject(i).getString("size");
-
-			System.out.println(CoffeeType);
 		}
 		ConvertToJson convert = new ConvertToJson();
-
 
 		String re = null;
 		re = json.toString();
@@ -71,29 +76,13 @@ public class df {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response CoffeeProducts() throws Exception {
 		Response rb = null;
-		Coffee beverage2 = null;
 		ConvertToJson convert = new ConvertToJson();
 		JSONArray json = new JSONArray();
 
 		String value = null;
+		double price1 = price(CoffeeType, Size, Liveliness);
 
-		if (CoffeeType.equals("Mocha")) {
-			beverage2 = new Frappe();
-			beverage2.setSize(Size);
-			beverage2.setLiveliness(Liveliness);
-			beverage2 = new Liveliness(beverage2);
-			beverage2 = new Size(beverage2);
-			System.out.println(beverage2.getDescription() + " $"
-					+ beverage2.cost());
-
-		} else {
-			String re = null;
-			json = convert.toJSONArray("Product Not available");
-			re = json.toString();
-			rb = Response.ok(json).build();
-			return rb;
-		}
-		value = Double.toString(beverage2.cost());
+		value = Double.toString(price1);
 		try {
 			json = convert.toJSONArray(value);
 		} catch (Exception e) {
@@ -104,5 +93,30 @@ public class df {
 		rb = Response.ok(json).build();
 		return rb;
 
+	}
+
+	public double price(String c, String s, String l) {
+		Coffee beverage2 = null;
+		if (CoffeeType.equals("Mocha")) {
+
+			beverage2 = new Mocha();
+		} else if (CoffeeType.equals("Frappe")) {
+
+			beverage2 = new Frappe();
+		} else if (CoffeeType.equals("Cappucino"))
+			beverage2 = new Cappucino();
+		else if (CoffeeType.equals("Latte")) {
+			beverage2 = new Latte();
+		} else {
+			beverage2 = new Expresso();
+		}
+
+		beverage2.setLiveliness(Liveliness);
+		beverage2.setSize(Size);
+
+		beverage2 = new Liveliness(beverage2);
+		beverage2 = new Size(beverage2);
+
+		return beverage2.cost();
 	}
 }
