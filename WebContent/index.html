@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<script src="js/jquery-min.js"></script>
+<script src="js/polyfill.js"></script>
+<script src="js/post.js"></script>
+Start of the headers for !CoffeeCup Menu Builder
+
+
+<meta charset="utf-8" />
+<link rel='stylesheet' type='text/css'
+	href='new_menu/stylesheets/menu_builder.css' />
+<link rel='stylesheet' type='text/css'
+	href='new_menu/stylesheets/style.css' />
+<script type="text/javascript" src="new_menu/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript"
+	src="new_menu/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+<script type="text/javascript" src="new_menu/js/tinynav.js"></script>
+<script type="text/javascript" src="new_menu/js/mb.js"></script>
+</head>
+
+
+<body>
+
+	<div id="menuBuilderContainer">
+		<div id="menuBuilder">
+			<button class="nav-button button bar">
+				<i class="icon_menu_handle"></i><span class="text_menu_link">MENU</span>
+			</button>
+			<div id="nav" class="nav">
+				<ul id="mainmenu" class="nav-collapse">
+					<li id="menu_1" class="menu_1 menu_items"><a href="#"> <span
+							class="icon_menu_handle"></span> <span class="text_menu_link">Welcome
+								to Coffee Shop</span>
+					</a></li>
+					<li id="menu_2" class="has-flyout menu_2 menu_items"><a
+						href="#"> <span class="icon_menu_handle"></span> <span
+							class="text_menu_link">Make Your Own Coffee</span>
+					</a>
+						<ul class="flyout submenu_menu_2 submenus" id="submenu_menu_2">
+							<li id="menu_2_sub_0"
+								class="menu_2_sub_0 submenus_items submenu_menu_2_items"><a
+								href="#"> <span class="icon_menu_handle"></span> <span
+									class="text_menu_link">Regular Coffee menu</span>
+							</a></li>
+							<li id="menu_2_sub_1"
+								class="menu_2_sub_1 submenus_items submenu_menu_2_items"><a
+								href="#"> <span class="icon_menu_handle"></span> <span
+									class="text_menu_link">Coffee with your own flavours</span>
+							</a></li>
+						</ul></li>
+					<li id="menu_3" class="menu_3 menu_items"><a href="#"> <span
+							class="icon_menu_handle"></span> <span class="text_menu_link">ABOUT</span>
+					</a></li>
+					<li id="menu_4" class="has-flyout menu_4 menu_items"><a
+						href="#"> <span class="icon_menu_handle"></span> <span
+							class="text_menu_link">CONTACT</span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<h1>Coffee Options</h1>
+		<form id="post_example" name="post_example" action="#" enctype='application/json'>
+		Coffee Type: <select name="CoffeeType">
+			<option value="Cappucino">Cappucino</option>
+			<option value="Latte">Latte</option>
+			<option value="Frappe">Frappe</option>
+			<option value="Expresso">Expresso</option>
+			<option value="Mocha">Mocha</option>
+		</select> 
+		Liveliness: <select name="Liveliness">
+			<option value="Bright">Bright</option>
+			<option value="Balanced">Balanced</option>
+			<option value="Smooth">Smooth</option>
+		</select>
+		Size: <select name="Size">
+			<option value="Small">Small</option>
+			<option value="Medium">Medium</option>
+			<option value="large">large</option>
+		</select>
+		 <input type="button" name="submit_it" id="submit_it" value="Submit Order"></input>
+	</form>
+<div id="div_ajaxResponse"></div>
+
+	<br />
+	<div id="div_ajaxResponse"></div>
+</body>
+</html>
