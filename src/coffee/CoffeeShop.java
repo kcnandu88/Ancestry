@@ -21,7 +21,7 @@ import Features.Size;
 import coffeename.*;
 
 @Path("/cost/")
-public class df {
+public class CoffeeShop {
 
 	static String CoffeeType = null;
 	static String Liveliness = null;
